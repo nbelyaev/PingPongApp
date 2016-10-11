@@ -1,0 +1,2 @@
+android.app.Application
+PingPongApp2.Droid

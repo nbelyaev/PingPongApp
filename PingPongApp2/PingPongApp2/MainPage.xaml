@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PingPongApp2.MainPage">
+
+  <Label Text="hi" VerticalOptions="Center" HorizontalOptions="Center" />
+
+  <StackLayout>
+    <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+
+      <Entry HeightRequest="50" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" x:Name="player1" Text="player1" />
+      <Label FontSize="Medium" Text=" Vs." HorizontalOptions="Center" />
+      <Entry HeightRequest="50" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" x:Name="player2" Text="player2" />
+    </StackLayout>
+
+
+
+    <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+      <Label FontSize="Medium" Text="Switch starting server" HorizontalOptions="Start" />
+      <Switch x:Name="toggleServer" Toggled="switchServer"></Switch>
+
+    </StackLayout>
+
+
+
+
+    <Picker x:Name="PointsPicker" SelectedIndex="1" SelectedIndexChanged="ChangeVictory" >
+      <Picker.Items>
+        <x:String>11</x:String>
+        <x:String>21</x:String>
+      </Picker.Items>
+    </Picker>
+
+
+    <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+
+      <Button HeightRequest="150" HorizontalOptions="FillAndExpand" x:Name="btnPlayer1" Text="player1" Clicked="Iterate"/>
+      <Button HeightRequest="150" HorizontalOptions="FillAndExpand" x:Name="btnPlayer2" Text="player1" Clicked="Iterate"/>
+    </StackLayout>
+
+    <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+
+      <Button HorizontalOptions="FillAndExpand" x:Name="reset" Text="RESET"  Clicked="ResetBtn"/>
+
+      <Button HorizontalOptions="FillAndExpand" x:Name="btnClearRecords" Text="CLEAR RECORDS"  Clicked="ClearRecords"/>
+      
+    </StackLayout>
+
+    <Label x:Name="lblTime" Text="" FontSize="Large"  HorizontalOptions="FillAndExpand" />
+
+
+
+    <StackLayout x:Name="newLbls"  Orientation="Vertical" HorizontalOptions="FillAndExpand"></StackLayout>
+
+  </StackLayout>
+
+  
+  
+  
+</ContentPage>
