@@ -18,48 +18,198 @@ namespace PingPongApp2 {
         private int count { get; set; }
         private bool victory { get; set; }
         private bool singleServe { get; set; }
-        private static Stopwatch stopwatch;
-        private static List<Game> games = new List<Game>();
-        private const string SAVED_GAMES = "temp.txt";
+        private Stopwatch stopwatch;
+        private List<Game> games = new List<Game>();
+        private string SAVED_GAMES ;
+        //public Game currentTournamentgame;
 
         public MainPage() {
+            Title = "Single Match";
+            SAVED_GAMES ="match_log.txt";
 
 
-            
             InitializeComponent();
             PointsPicker.SelectedIndex = 1;
             stopwatch = new Stopwatch();
+            player1.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
+            player2.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
+
             Reset();
 
 
-            LoadGames(SAVED_GAMES);
+            LoadGames();
+
+
+        }
+
+        public Game SaveGame() {
+            Game thisGame = new Game();
+            thisGame.player1 = player1.Text;
+            thisGame.player2 = player2.Text;
+            thisGame.score1 = btnPlayer1.Text;
+            thisGame.score2 = btnPlayer2.Text;
+            thisGame.timeMin = stopwatch.Elapsed.Minutes.ToString();
+            thisGame.timeSec = stopwatch.Elapsed.Seconds.ToString();
+            thisGame.victoryScoreIndex = PointsPicker.SelectedIndex;
+            thisGame.singleServe = singleServe;
+
+            stopwatch.Stop();
+            thisGame.gameStopwatch = stopwatch;
+
+            if (btnPlayer1.BackgroundColor == Color.Blue) {
+                //thisGame.server = "1";
+                thisGame.colorSetup = Game.colorOptions.p1Serves;
+            }
+            else if (btnPlayer2.BackgroundColor == Color.Blue) {
+                //thisGame.server = "2";
+                thisGame.colorSetup = Game.colorOptions.p2Serves;
+            }
+            else if (btnPlayer1.BackgroundColor == Color.Green) {
+                //thisGame.server = "2";
+                thisGame.colorSetup = Game.colorOptions.p1Won;
+            }
+            else if (btnPlayer2.BackgroundColor == Color.Green) {
+                //thisGame.server = "2";
+                thisGame.colorSetup = Game.colorOptions.p2Won;
+            }
+            return thisGame;
+        }
+
+        public MainPage(Game game) {
+            Title = "Tournament Match";
+            SAVED_GAMES = "tournament_log.txt";
+            //currentTournamentgame = game;
+
+            InitializeComponent();
+            //PointsPicker.SelectedIndex = 1;
+            //stopwatch = new Stopwatch();
+            player1.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
+            player2.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
+
+
+
+            SetUpGame(game);
+
+
+            LoadGames();
+
+
+        }
+
+        public void SetUpGame(Game game) {
+            player1.Text = game.player1;
+            player2.Text = game.player2;
+            btnPlayer1.Text = game.score1;
+            btnPlayer2.Text = game.score2;
+            PointsPicker.SelectedIndex = game.victoryScoreIndex;
+            singleServe = game.singleServe;
+
+            btnPlayer1.BackgroundColor = Color.Gray;
+            btnPlayer1.BackgroundColor = Color.Gray;
+            //if (game.server == "1") {
+            //    btnPlayer1.BackgroundColor = Color.Blue;
+            //}
+            //else if (game.server == "2") {
+            //    btnPlayer2.BackgroundColor = Color.Blue;
+            //}
+
+            switch (game.colorSetup) {
+                case Game.colorOptions.p1Serves:
+                    btnPlayer1.BackgroundColor = Color.Blue;
+                    victory = false;
+                    break;
+                case Game.colorOptions.p2Serves:
+                    btnPlayer2.BackgroundColor = Color.Blue;
+                    victory = false;
+                    break;
+                case Game.colorOptions.p1Won:
+                    btnPlayer1.BackgroundColor = Color.Green;
+                    victory = true;
+                    break;
+                case Game.colorOptions.p2Won:
+                    btnPlayer1.BackgroundColor = Color.Green;
+                    victory = true;
+                    break;
+            }
+
+
+
+            count = int.Parse(game.score1) + int.Parse(game.score2);
+
+            if(count == 0) {
+                PointsPicker.IsEnabled = true;
+                //victory = false;
+                singleServe = false;
+                toggleServer.IsEnabled = true;
+            }
+            else {
+
+                PointsPicker.IsEnabled = false;
+
+                toggleServer.IsEnabled = false;
+
+            }
+            //PointsPicker.IsEnabled = true;
+            ////count = 0;
+            //victory = false;
+            //singleServe = false;
+            //toggleServer.IsEnabled = true;
+
+            //stopwatch.Reset();
+
+            if(game.gameStopwatch != null && game.gameStopwatch.ElapsedTicks > 0) {
+                stopwatch = game.gameStopwatch;
+            }
+            else {
+                stopwatch = new Stopwatch();
+            }
+
 
 
         }
 
 
-        //LoadGames() without parameter will probably work with database in the future, not yet implemented
-        private void LoadGames(string file) {
-            
 
-            //lblTime.Text= DependencyService.Get<ISaveAndLoad>().LoadText("temp.txt");
-            //var json = Newtonsoft.Json.JsonConvert.SerializeObject(thisGame);
-            newLbls.Children.Clear();
+        //public MainPage(int n) {
+        //    //Content = new StackLayout {
+
+        //    //};
+        //    InitializeComponent();
+        //    Content.IsEnabled = false;
+        //}
+
+
+        private void LoadGames() {
+            
+            
             string  temp = DependencyService.Get<ISaveAndLoad>().LoadText(SAVED_GAMES);
 
             if(temp!= "") {
                 games = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Game>>(temp);
 
-                games = games.OrderByDescending(x => x.timeStamp).ToList();
+                //games = games.OrderByDescending(x => x.timeStamp).ToList();
 
-                foreach (Game game in games) {
-                    string log = game.ToString();
-                    Label lbl = new Label() { Text = log, HorizontalOptions = LayoutOptions.FillAndExpand };
-                    newLbls.Children.Add(lbl);
-                }
+                //foreach (Game game in games) {
+                //    string log = game.ToString();
+                //    Label lbl = new Label() { Text = log, HorizontalOptions = LayoutOptions.FillAndExpand, FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)) };
+                //    newLbls.Children.Add(lbl);
+                //}
+
+                DisplayGames();
             }
             
 
+        }
+
+        private void DisplayGames() {
+            newLbls.Children.Clear();
+            if (games.Count != 0) {
+                foreach (Game game in games) {
+                    string log = game.ToString();
+                    Label lbl = new Label() { Text = log, HorizontalOptions = LayoutOptions.FillAndExpand, FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)) };
+                    newLbls.Children.Add(lbl);
+                }
+            }
         }
 
 
@@ -155,7 +305,6 @@ namespace PingPongApp2 {
                 btnPlayer1.IsEnabled = false;
                 btnPlayer2.IsEnabled = false;
                 stopwatch.Stop();
-                lblTime.Text = stopwatch.Elapsed.ToString();
 
                 if (p1 > p2) {
                     btnPlayer1.BackgroundColor = Color.Green;
@@ -166,25 +315,15 @@ namespace PingPongApp2 {
                 victory = true;
 
                 logGame();
-                LoadGames(SAVED_GAMES);
+                DisplayGames();
+                //LoadGames(SAVED_GAMES);
 
             }
 
         }
 
         private void logGame() {
-            //string plr1 = player1.Text;
-            //string plr2 = player2.Text;
-            //string scr1 = btnPlayer1.Text;
-            //string scr2 = btnPlayer2.Text;
-            //string timeMin = stopwatch.Elapsed.Minutes.ToString();
-            //string timeSec = stopwatch.Elapsed.Seconds.ToString();
-
-            //string log = plr1 + " vs. " + plr2 + " <" + scr1 + ":" + scr2 +
-            //    "> Time: " + timeMin + " min. " + timeSec + " sec.";
-
-            ///StackLayout stack = Content.FindByName<StackLayout>("newLbls");
-            ///
+            
 
             Game thisGame = new Game();
             thisGame.player1 = player1.Text;
@@ -193,27 +332,20 @@ namespace PingPongApp2 {
             thisGame.score2 = btnPlayer2.Text;
             thisGame.timeMin= stopwatch.Elapsed.Minutes.ToString();
             thisGame.timeSec = stopwatch.Elapsed.Seconds.ToString();
-
-            //string log = thisGame.ToString();
-            //Label lbl = new Label() { Text = log, HorizontalOptions = LayoutOptions.FillAndExpand };
-            //newLbls.Children.Add(lbl);
-
+            thisGame.gameStopwatch = stopwatch;
+            
             games.Insert(0, thisGame);
-            //games.Add(thisGame);
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(games);
 
             DependencyService.Get<ISaveAndLoad>().SaveText(SAVED_GAMES, json.ToString());
-
-            //this.Resources
-            //Game game = new Game(Resources);
-
-
+            
         }
 
         public void ClearRecords(object sender, EventArgs e) {
             DependencyService.Get<ISaveAndLoad>().SaveText(SAVED_GAMES, "");
             games.Clear();
-            LoadGames(SAVED_GAMES);
+            //LoadGames(SAVED_GAMES);
+            DisplayGames();
 
         }
 

@@ -6,10 +6,10 @@
   <Label Text="hi" VerticalOptions="Center" HorizontalOptions="Center" />
 
   <StackLayout>
-    <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+    <StackLayout  Padding="0,25" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
 
       <Entry HeightRequest="50" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" x:Name="player1" Text="player1" />
-      <Label FontSize="Medium" Text=" Vs." HorizontalOptions="Center" />
+      <Label FontSize="Large" Text=" Vs." HorizontalOptions="Center" />
       <Entry HeightRequest="50" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" x:Name="player2" Text="player2" />
     </StackLayout>
 
@@ -32,7 +32,7 @@
     </Picker>
 
 
-    <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+    <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="0,25">
 
       <Button HeightRequest="150" HorizontalOptions="FillAndExpand" x:Name="btnPlayer1" Text="player1" Clicked="Iterate"/>
       <Button HeightRequest="150" HorizontalOptions="FillAndExpand" x:Name="btnPlayer2" Text="player1" Clicked="Iterate"/>
@@ -40,17 +40,16 @@
 
     <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand">
 
-      <Button HorizontalOptions="FillAndExpand" x:Name="reset" Text="RESET"  Clicked="ResetBtn"/>
+      <Button HorizontalOptions="FillAndExpand" x:Name="reset" Text="NEW GAME"  Clicked="ResetBtn"/>
 
       <Button HorizontalOptions="FillAndExpand" x:Name="btnClearRecords" Text="CLEAR RECORDS"  Clicked="ClearRecords"/>
       
     </StackLayout>
 
-    <Label x:Name="lblTime" Text="" FontSize="Large"  HorizontalOptions="FillAndExpand" />
 
 
 
-    <StackLayout x:Name="newLbls"  Orientation="Vertical" HorizontalOptions="FillAndExpand"></StackLayout>
+    <StackLayout x:Name="newLbls"  Orientation="Vertical" HorizontalOptions="FillAndExpand" Padding="0,25"></StackLayout>
 
   </StackLayout>
 
