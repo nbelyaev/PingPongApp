@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PingPongApp2 {
-    class Participant {
+    public class Participant {
         public string Name { get;set;}
 
         public Participant() {

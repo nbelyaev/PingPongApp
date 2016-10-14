@@ -157,9 +157,16 @@ namespace PingPongApp2 {
         }
 
         private async void StartNewTournament(object o, EventArgs e) {
-            currentGame = new Game();
-            currentGamePage = new MainPage(currentGame);
-            await Navigation.PushAsync(currentGamePage);
+            if(participants!=null && participants.Count > 1) {
+                currentGame = new Game();
+                currentGamePage = new MainPage(currentGame);
+                await Navigation.PushAsync(currentGamePage);
+            }
+            else {
+                
+                await DisplayAlert("Alert", "You need at least 2 participants!", "OK");
+            }
+            
         }
 
         private async void ContinueTournament(object o, EventArgs e) {
