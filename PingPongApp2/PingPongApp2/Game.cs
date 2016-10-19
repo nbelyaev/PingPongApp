@@ -19,6 +19,7 @@ namespace PingPongApp2 {
         public colorOptions colorSetup;
         public bool singleServe;
         public Stopwatch gameStopwatch { get; set; }
+        public Stack<int> history { get; set; }
 
         public Game() {
             player1 = "Player1";
@@ -28,6 +29,7 @@ namespace PingPongApp2 {
             timeMin  ="0";
             timeSec = "0";
             timeStamp = DateTime.Now.ToString();
+            history = new Stack<int>();
         }
         
 

@@ -129,8 +129,9 @@ namespace PingPongApp2 {
         }
 
         private async void ContinueTournament(object o, EventArgs e) {
-            
-            await Navigation.PushAsync(new MainPage(currentTournament));
+
+            currentGamePage = new MainPage(currentTournament, currentGame);
+            await Navigation.PushAsync(currentGamePage);
         }
 
 

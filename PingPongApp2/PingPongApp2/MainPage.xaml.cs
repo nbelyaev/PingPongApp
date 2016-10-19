@@ -22,11 +22,13 @@ namespace PingPongApp2 {
         private List<Game> games = new List<Game>();
         private string SAVED_GAMES ;
         public Tournament currentTournament;
+        public bool tournamentGame;
+        public Stack<int> history;
 
         public MainPage() {
             Title = "Single Match";
             SAVED_GAMES ="match_log.txt";
-
+            tournamentGame = false;
 
             InitializeComponent();
             PointsPicker.SelectedIndex = 1;
@@ -38,6 +40,8 @@ namespace PingPongApp2 {
             reset.Clicked += ResetBtn;
 
             reset.IsEnabled = true;
+
+
 
 
             Reset();
@@ -58,6 +62,8 @@ namespace PingPongApp2 {
             thisGame.timeSec = stopwatch.Elapsed.Seconds.ToString();
             thisGame.victoryScoreIndex = PointsPicker.SelectedIndex;
             thisGame.singleServe = singleServe;
+
+            thisGame.history = history;
 
             stopwatch.Stop();
             thisGame.gameStopwatch = stopwatch;
@@ -80,6 +86,9 @@ namespace PingPongApp2 {
         public MainPage(Tournament tournament) {
             Title = "Tournament Match";
             SAVED_GAMES = "tournament_log.txt";
+            tournamentGame = true;
+            
+
 
             InitializeComponent();
             player1.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
@@ -91,6 +100,30 @@ namespace PingPongApp2 {
             reset.IsEnabled = false;
 
             SetUpGame(tournament.NextGame());
+            ClearRecords();
+
+
+            LoadGames();
+
+
+        }
+        public MainPage(Tournament tournament, Game game) {
+            Title = "Tournament Match";
+            SAVED_GAMES = "tournament_log.txt";
+            tournamentGame = true;
+
+
+
+            InitializeComponent();
+            player1.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
+            player2.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
+
+
+            currentTournament = tournament;
+            reset.Clicked += setUpNextTournamentGame;
+            reset.IsEnabled = false;
+
+            SetUpGame(game);
             ClearRecords();
 
 
@@ -115,6 +148,10 @@ namespace PingPongApp2 {
             btnPlayer2.Text = game.score2;
             PointsPicker.SelectedIndex = game.victoryScoreIndex;
             singleServe = game.singleServe;
+
+
+            history = game.history;
+
 
             btnPlayer1.BackgroundColor = Color.Gray;
             btnPlayer1.BackgroundColor = Color.Gray;
@@ -208,6 +245,10 @@ namespace PingPongApp2 {
             toggleServer.IsEnabled = true;
 
             stopwatch.Reset();
+
+
+
+            history = new Stack<int>();
             
         }
 
@@ -309,9 +350,9 @@ namespace PingPongApp2 {
                 logGame();
                 DisplayGames();
 
-                if (currentTournament!= null && currentTournament.VictorDecided()) {
+                if (tournamentGame && currentTournament!= null && currentTournament.VictorDecided()) {
                     reset.IsEnabled = false;
-                    DisplayAlert("Chanpion", "The champion of this tournament is "+victor+"!", "OK");
+                    DisplayAlert("Champion", "The champion of this tournament is "+victor+"!", "OK");
                 }
 
             }
