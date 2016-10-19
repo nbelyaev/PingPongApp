@@ -12,8 +12,6 @@ namespace PingPongApp2 {
         private MainPage gamePage;
         public Tabs() {
             Title = "Tabs";
-            ///Children.Add(new MainPage());
-            //Children.Add(new NavigationPage( new ParticipantsPage() ));
 
             gamePage = new MainPage();
             NavigationPage main = new NavigationPage(gamePage);
@@ -31,7 +29,14 @@ namespace PingPongApp2 {
 
         public void PreserveGame(object o, EventArgs e) {
             partPage.currentGame = partPage.currentGamePage.SaveGame();
-            partPage.contunueGame.IsEnabled = true;
+            if (partPage.currentTournament.VictorDecided()) {
+                partPage.contunueGame.IsEnabled = false;
+
+            }
+            else {
+                partPage.contunueGame.IsEnabled = true;
+
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
+C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2.Droid\bin\Debug\PingPongApp2.Droid.apk
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2.Droid\bin\Debug\PingPongApp2.Droid.dll
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2.Droid\bin\Debug\PingPongApp2.Droid.pdb
-C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2.Droid\bin\Debug\PingPongApp2.Droid.apk
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2.Droid\bin\Debug\PingPongApp2.Droid-Signed.apk
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2.Droid\bin\Debug\FormsViewGroup.dll
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2.Droid\bin\Debug\Newtonsoft.Json.dll

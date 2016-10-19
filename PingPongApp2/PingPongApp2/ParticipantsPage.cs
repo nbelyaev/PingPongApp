@@ -9,21 +9,7 @@ using Xamarin.Forms;
 namespace PingPongApp2 {
     public class ParticipantsPage : ContentPage {
 
-
-        //readonly Dictionary<string, object> _names = new Dictionary<string, object>();
-
-        //object FindByName(string name) {
-        //    if (_names.ContainsKey(name))
-        //        return _names[name];
-        //    return null;
-        //}
-
-        //void RegisterName(string name, object scopedElement) {
-        //    if (_names.ContainsKey(name))
-        //        throw new ArgumentException("An element with the same key already exists in NameScope", "name");
-
-        //    _names[name] = scopedElement;
-        //}
+        
 
         private static List<Participant> participants = new List<Participant>();
         private const string LIST_OF_PARTICIPANTS = "participants.txt";
@@ -32,42 +18,20 @@ namespace PingPongApp2 {
         public Game currentGame;
         public Button contunueGame;
         public MainPage currentGamePage;
+        public Tournament currentTournament;
 
         public ParticipantsPage() {
 
             Title = "Tournament";
-            //Content = new StackLayout {
-            //    Children = {
-            //        new Label { Text = "List of participants and relevant controls" },
-            //        new Button { Text="NEW TOURNAMENT", ClassId="btn" },
-            //         new Button { Text="ADD NEW PARTICIPANT", ClassId="btn1" }
-            //    }
-            //};
+            
             StackLayout pageContent = new StackLayout();
-            //Label lbl = new Label { Text = "hoho" };
-
             Content = pageContent;
-            //pageContent.Children.Add(lbl);
-
             Initialize();
 
             LoadParticipants();
 
-            
 
-            //Button btnNewTourn = new Button { Text = "NEW TOURNAMENT", ClassId = "btn" };
-            //Entry newParticipant = new Entry { Placeholder = "Name of a new participant",
-            //    HorizontalOptions =LayoutOptions.FillAndExpand, HorizontalTextAlignment=TextAlignment.Center,
-            //    FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry))
-            //};
-            //Button btnNewPart = new Button { Text = "ADD NEW PARTICIPANT", ClassId = "btn1"};
-            //btnNewPart.Clicked += AddParticipant;
-
-            //pageContent.Children.Add(btnNewTourn);
-            //pageContent.Children.Add(newParticipant);
-            //pageContent.Children.Add(btnNewPart);
-            //StackLayout participants = new StackLayout ();
-            //pageContent.Children.Add(participants);
+            DisplayParticipants();
 
 
         }
@@ -78,30 +42,19 @@ namespace PingPongApp2 {
 
             if (temp != "") {
                 participants = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Participant>>(temp);
-
-                //games = games.OrderByDescending(x => x.timeStamp).ToList();
-
-                //foreach (Game game in games) {
-                //    string log = game.ToString();
-                //    Label lbl = new Label() { Text = log, HorizontalOptions = LayoutOptions.FillAndExpand, FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)) };
-                //    newLbls.Children.Add(lbl);
-                //}
-
-
-                DisplayParticipants();
+                
             }
         }
 
         private void DisplayParticipants() {
-            //StackLayout stackParticipants = Content.FindByName<StackLayout>("stackParticipants");
             stackParticipants.Children.Clear();
             if (participants.Count != 0) {
                 foreach (Participant part in participants) {
-                    Button remove = new Button { Text = "X" , HorizontalOptions= LayoutOptions.End};
+                    Button remove = new Button { Text = "X" , HorizontalOptions= LayoutOptions.End, CommandParameter=part};
                     remove.Clicked += RemoveName;
 
 
-                    Label lbl = new Label() { Text = part.Name, HorizontalOptions = LayoutOptions.FillAndExpand,
+                    Label lbl = new Label() { Text = part.Name,  HorizontalOptions = LayoutOptions.FillAndExpand,
                         FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)) };
 
                     StackLayout nameStack = new StackLayout { HorizontalOptions = LayoutOptions.FillAndExpand ,
@@ -118,11 +71,14 @@ namespace PingPongApp2 {
         private void RemoveName(object o, EventArgs e) {
             StackLayout stack= (StackLayout)((Button)o).Parent;
             stackParticipants.Children.Remove(stack);
+            //Label lbl= stack.FindByName<Label>("lbl");
+            //int n =((StackLayout)(stack.Parent)).Children.IndexOf(stack);
+            //((Button)o).CommandParameter.ToString();
+            participants.Remove((Participant)((Button)o).CommandParameter);
         }
 
         private void Initialize() {
-
-            //StackLayout pageContent = Content.FindByName<StackLayout>("pageContent");
+            
             StackLayout pageContent = (StackLayout)Content;
 
 
@@ -158,8 +114,11 @@ namespace PingPongApp2 {
 
         private async void StartNewTournament(object o, EventArgs e) {
             if(participants!=null && participants.Count > 1) {
-                currentGame = new Game();
-                currentGamePage = new MainPage(currentGame);
+                //currentGame = new Game();
+                currentTournament = new Tournament(participants);
+                //currentGame = currentTournament.NextGame();
+                
+                currentGamePage = new MainPage(currentTournament);
                 await Navigation.PushAsync(currentGamePage);
             }
             else {
@@ -170,16 +129,13 @@ namespace PingPongApp2 {
         }
 
         private async void ContinueTournament(object o, EventArgs e) {
-            //currentGame =  currentGame;
-            await Navigation.PushAsync(new MainPage(currentGame));
+            
+            await Navigation.PushAsync(new MainPage(currentTournament));
         }
 
 
         public void AddParticipant(object sender, EventArgs e) {
-            //StackLayout pageContent = (StackLayout)Content;
-            //pageContent.Children.ToDictionary;
-            //Entry entry = (Entry)pageContent.FindByName<object>("newParticipant");
-            //Entry entry = pageContent.Children.
+            
             if (nameEntry.Text != "" && nameEntry.Text != null) {
                 Participant participant = new Participant(nameEntry.Text);
                 participants.Add(participant);
@@ -195,10 +151,7 @@ namespace PingPongApp2 {
             else {
                 DisplayAlert("Alert", "You need to enter a name!", "OK");
             }
-
-            //var json = Newtonsoft.Json.JsonConvert.SerializeObject(games);
-
-            //DependencyService.Get<ISaveAndLoad>().SaveText(SAVED_GAMES, json.ToString());
+            
         }
         
     }

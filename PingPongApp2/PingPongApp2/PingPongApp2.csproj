@@ -45,6 +45,7 @@
     <Compile Include="ParticipantsPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tabs.cs" />
+    <Compile Include="Tournament.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Android">

@@ -11,8 +11,9 @@ namespace PingPongApp2 {
 
 
         public Tournament(List<Participant> list) {
-            //list.
             list.Shuffle();
+            players = new Stack<Participant>();
+            nextRoundPlayers = new Stack<Participant>();
             foreach (Participant part in list) {
                 players.Push(part);
 
@@ -46,6 +47,7 @@ namespace PingPongApp2 {
         }
 
         public void NextRound() {
+            
             players = nextRoundPlayers;
             nextRoundPlayers = new Stack<Participant>();
         }
@@ -65,7 +67,6 @@ namespace PingPongApp2 {
         private static Random rng = new Random();
 
         public static void Shuffle<T>(this IList<T> list) {
-            //List<T> list =  l.ToList();
             int n = list.Count;
             while (n > 1) {
                 n--;

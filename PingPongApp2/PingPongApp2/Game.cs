@@ -14,7 +14,6 @@ namespace PingPongApp2 {
         public string timeMin { get; set; }
         public string timeSec { get; set; }
         public string timeStamp { get; }
-        //public string server { get; set; }
         public int victoryScoreIndex { get; set; }
         public enum colorOptions {p1Serves,p2Serves,p1Won, p2Won }
         public colorOptions colorSetup;
@@ -29,10 +28,6 @@ namespace PingPongApp2 {
             timeMin  ="0";
             timeSec = "0";
             timeStamp = DateTime.Now.ToString();
-            //server = "";
-
-            //player1 = "supsupssupusus";
-            //victoryScoreIndex = -24;
         }
         
 
