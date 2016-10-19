@@ -291,19 +291,25 @@ namespace PingPongApp2 {
                 if (p1 > p2) {
                     btnPlayer1.BackgroundColor = Color.Green;
                     victor = player1.Text;
-                    currentTournament.AdvancePlayerToNextRound(new Participant {  Name= victor });
                 }
                 else {
                     btnPlayer2.BackgroundColor = Color.Green;
                     victor = player2.Text;
+                }
+
+
+                if(currentTournament != null) {
+
                     currentTournament.AdvancePlayerToNextRound(new Participant { Name = victor });
                 }
+
+
                 victory = true;
                 reset.IsEnabled = true;
                 logGame();
                 DisplayGames();
 
-                if (currentTournament.VictorDecided()) {
+                if (currentTournament!= null && currentTournament.VictorDecided()) {
                     reset.IsEnabled = false;
                     DisplayAlert("Chanpion", "The champion of this tournament is "+victor+"!", "OK");
                 }
