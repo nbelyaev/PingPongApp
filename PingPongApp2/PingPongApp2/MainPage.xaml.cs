@@ -86,6 +86,8 @@ namespace PingPongApp2 {
             return thisGame;
         }
 
+
+        //can probably combine this one with MainPage(Tournament tournament, Game game)
         public MainPage(Tournament tournament) {
             Title = "Tournament Match";
             SAVED_GAMES = "tournament_log.txt";
@@ -99,6 +101,11 @@ namespace PingPongApp2 {
 
 
             currentTournament = tournament;
+
+            currentTournament.NewRoundStarted += NewRoundMessage;
+
+
+
             reset.Clicked += setUpNextTournamentGame;
             reset.IsEnabled = false;
 
@@ -123,6 +130,10 @@ namespace PingPongApp2 {
 
 
             currentTournament = tournament;
+
+            currentTournament.NewRoundStarted += NewRoundMessage;
+
+
             reset.Clicked += setUpNextTournamentGame;
             reset.IsEnabled = false;
 
@@ -133,6 +144,10 @@ namespace PingPongApp2 {
             LoadGames();
 
 
+        }
+        public void NewRoundMessage(object sender, NewRoundStartedEventArgs e) {
+            
+            DisplayAlert("Champion", "The round number "+e.roundNum + " have started!", "OK");
         }
 
         public void setUpNextTournamentGame(object o, EventArgs e) {

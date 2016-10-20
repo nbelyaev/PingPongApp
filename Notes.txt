@@ -1,4 +1,5 @@
-Undo
-Best out of ____
-Add participants mid tournament
+[x]Undo
+[]Best out of ____
+[x]Add participants mid tournament
 	just add them to the stack in the tournament class
+[]show brackets????

@@ -8,6 +8,7 @@ namespace PingPongApp2 {
     public class Tournament {
         public Stack<Participant> players { get; set; }
         public Stack<Participant> nextRoundPlayers { get; set; }
+        public int roundNum = 1;
 
 
         public Tournament(List<Participant> list) {
@@ -76,6 +77,13 @@ namespace PingPongApp2 {
             players = nextRoundPlayers;
             nextRoundPlayers = new Stack<Participant>();
             ShufflePlayers();
+
+            roundNum++;
+
+
+            NewRoundStartedEventArgs args = new NewRoundStartedEventArgs();
+            args.roundNum = roundNum;
+            OnNewRoundStarted(args);
         }
 
         public void AdvancePlayerToNextRound(Participant part) {
@@ -83,10 +91,21 @@ namespace PingPongApp2 {
         }
 
 
+        protected virtual void OnNewRoundStarted(NewRoundStartedEventArgs e) {
+            EventHandler<NewRoundStartedEventArgs> handler = NewRoundStarted;
+            if (handler != null) {
+                handler(this, e);
+            }
+        }
 
-        
+        public event EventHandler<NewRoundStartedEventArgs> NewRoundStarted;
 
 
+
+    }
+
+    public class NewRoundStartedEventArgs : EventArgs {
+        public int roundNum { get; set; }
     }
 
     static class shuffler {
