@@ -15,7 +15,7 @@ namespace PingPongApp2 {
             }
             set { }
         }
-        private int count { get; set; }
+        private int count { get; set; }//can be replaced with local variables, REMOVE
         private bool victory { get; set; }
         private bool singleServe { get; set; }
         private Stopwatch stopwatch;
@@ -24,6 +24,8 @@ namespace PingPongApp2 {
         public Tournament currentTournament;
         public bool tournamentGame;
         public Stack<int> history;
+
+
 
         public MainPage() {
             Title = "Single Match";
@@ -258,11 +260,14 @@ namespace PingPongApp2 {
         }
 
         private void chkServer() {
-            count++;
+            //count++;
 
 
             int score1 = int.Parse(btnPlayer1.Text);
             int score2 = int.Parse(btnPlayer2.Text);
+
+            count = score1 + score2;
+
 
             if (singleServe) {
                 changeServer();
@@ -303,6 +308,40 @@ namespace PingPongApp2 {
             victoryScore = int.Parse(PointsPicker.Items[PointsPicker.SelectedIndex]);
         }
 
+
+        public void Undo(object o, EventArgs e) {
+            if(history.Count > 0) {
+                int prev = history.Pop();
+                Button btn;
+                if (prev == 1) {
+                    btn = btnPlayer1;
+                }
+                else {
+                    btn = btnPlayer2;
+
+                }
+
+
+                chkServer();
+
+                int val;
+                int.TryParse(btn.Text, out val);
+                val--;
+                btn.Text = val.ToString();
+                //count = count - 2;
+
+
+
+                //int score1 = int.Parse(btnPlayer1.Text);
+                //int score2 = int.Parse(btnPlayer2.Text);
+                //if((score1+score2))
+
+
+            }
+            
+
+            
+        }
         
 
         public void Iterate(object sender, EventArgs e) {
@@ -311,10 +350,22 @@ namespace PingPongApp2 {
                 if (!stopwatch.IsRunning) {
                     stopwatch.Start();
                 }
-
+                
                 PointsPicker.IsEnabled = false;
                 toggleServer.IsEnabled = false;
                 Button btn = (Button)sender;
+
+
+                if(btn == btnPlayer1) {
+                    history.Push(1);
+                }
+                else {
+                    history.Push(2);
+                }
+
+
+
+
                 int score = int.Parse(btn.Text);
                 score++;
                 btn.Text = (score).ToString();

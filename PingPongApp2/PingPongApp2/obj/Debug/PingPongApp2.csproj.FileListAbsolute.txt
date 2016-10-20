@@ -20,3 +20,5 @@ C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\obj\Debug\
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\obj\Debug\PingPongApp2.pdb
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\obj\Debug\PingPongApp2.dll.mdb
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\PingPongApp2.dll.mdb
+C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\obj\Debug\PingPongApp2.dll.mdb
+C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\PingPongApp2.dll.mdb

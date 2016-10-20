@@ -41,6 +41,9 @@ namespace PingPongApp2 {
         private global::Xamarin.Forms.Button btnClearRecords;
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
+        private global::Xamarin.Forms.Button btnUndo;
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private global::Xamarin.Forms.StackLayout newLbls;
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
@@ -54,6 +57,7 @@ namespace PingPongApp2 {
             btnPlayer2 = this.FindByName<global::Xamarin.Forms.Button>("btnPlayer2");
             reset = this.FindByName<global::Xamarin.Forms.Button>("reset");
             btnClearRecords = this.FindByName<global::Xamarin.Forms.Button>("btnClearRecords");
+            btnUndo = this.FindByName<global::Xamarin.Forms.Button>("btnUndo");
             newLbls = this.FindByName<global::Xamarin.Forms.StackLayout>("newLbls");
         }
     }

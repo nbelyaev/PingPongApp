@@ -48,6 +48,10 @@
 
 
 
+    <Button HorizontalOptions="FillAndExpand" x:Name="btnUndo" Text="UNDO"  Clicked="Undo"/>
+
+
+
 
     <StackLayout x:Name="newLbls"  Orientation="Vertical" HorizontalOptions="FillAndExpand" Padding="0,25"></StackLayout>
 
