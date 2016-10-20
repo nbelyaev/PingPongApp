@@ -18,9 +18,16 @@ namespace PingPongApp2 {
                 players.Push(part);
 
             }
-
-
             
+        }
+
+        public void AddParticipant(Participant part) {
+            if(players.Count > 0) {
+                players.Push(part);
+            }
+            else {
+                nextRoundPlayers.Push(part);
+            }
         }
 
         public bool VictorDecided() {

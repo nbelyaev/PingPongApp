@@ -148,6 +148,11 @@ namespace PingPongApp2 {
 
                 DisplayParticipants();
 
+                if(currentTournament != null) {
+                    currentTournament.AddParticipant(participant);
+                }
+
+
             }
             else {
                 DisplayAlert("Alert", "You need to enter a name!", "OK");

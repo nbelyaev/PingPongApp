@@ -31,6 +31,8 @@ namespace PingPongApp2 {
             partPage.currentGame = partPage.currentGamePage.SaveGame();
             if (partPage.currentTournament.VictorDecided()) {
                 partPage.contunueGame.IsEnabled = false;
+                partPage.currentTournament = null;
+                partPage.currentGame = null;
 
             }
             else {
