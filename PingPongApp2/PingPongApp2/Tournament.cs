@@ -21,9 +21,27 @@ namespace PingPongApp2 {
             
         }
 
+        public void ShufflePlayers() {
+            if(players.Count > 0) {
+                List<Participant> list = players.ToList();
+                list.Shuffle();
+                players = new Stack<Participant>();
+                //nextRoundPlayers = new Stack<Participant>();
+                foreach (Participant part in list) {
+                    players.Push(part);
+
+                }
+
+            }
+            
+        }
+
+
+
         public void AddParticipant(Participant part) {
             if(players.Count > 0) {
                 players.Push(part);
+                ShufflePlayers();
             }
             else {
                 nextRoundPlayers.Push(part);
@@ -57,6 +75,7 @@ namespace PingPongApp2 {
             
             players = nextRoundPlayers;
             nextRoundPlayers = new Stack<Participant>();
+            ShufflePlayers();
         }
 
         public void AdvancePlayerToNextRound(Participant part) {
