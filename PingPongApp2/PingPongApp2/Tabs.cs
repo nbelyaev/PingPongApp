@@ -30,7 +30,7 @@ namespace PingPongApp2 {
         public void PreserveGame(object o, EventArgs e) {
             partPage.currentGame = partPage.currentGamePage.SaveGame();
             if (partPage.currentTournament.VictorDecided()) {
-                //partPage.contunueGame.IsEnabled = false;
+                partPage.contunueGame.IsEnabled = false;
 
             }
             else {

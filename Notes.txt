@@ -1,0 +1,4 @@
+Undo
+Best out of ____
+Add participants mid tournament
+	just add them to the stack in the tournament class

@@ -68,17 +68,18 @@ namespace PingPongApp2 {
             stopwatch.Stop();
             thisGame.gameStopwatch = stopwatch;
 
-            if (btnPlayer1.BackgroundColor == Color.Blue) {
-                thisGame.colorSetup = Game.colorOptions.p1Serves;
-            }
-            else if (btnPlayer2.BackgroundColor == Color.Blue) {
-                thisGame.colorSetup = Game.colorOptions.p2Serves;
-            }
-            else if (btnPlayer1.BackgroundColor == Color.Green) {
+            
+            if (btnPlayer1.BackgroundColor == Color.Green) {
                 thisGame.colorSetup = Game.colorOptions.p1Won;
             }
             else if (btnPlayer2.BackgroundColor == Color.Green) {
                 thisGame.colorSetup = Game.colorOptions.p2Won;
+            }
+            else if (btnPlayer1.BackgroundColor == Color.Blue) {
+                thisGame.colorSetup = Game.colorOptions.p1Serves;
+            }
+            else if (btnPlayer2.BackgroundColor == Color.Blue) {
+                thisGame.colorSetup = Game.colorOptions.p2Serves;
             }
             return thisGame;
         }
@@ -136,6 +137,7 @@ namespace PingPongApp2 {
             if (!currentTournament.VictorDecided()) {
 
                 SetUpGame(currentTournament.NextGame());
+                reset.IsEnabled = false;
             }
         }
 
@@ -157,6 +159,17 @@ namespace PingPongApp2 {
             btnPlayer1.BackgroundColor = Color.Gray;
 
             switch (game.colorSetup) {
+                
+                case Game.colorOptions.p1Won:
+                    btnPlayer1.BackgroundColor = Color.Green;
+                    victory = true;
+                    reset.IsEnabled = true;
+                    break;
+                case Game.colorOptions.p2Won:
+                    btnPlayer2.BackgroundColor = Color.Green;
+                    victory = true;
+                    reset.IsEnabled = true;
+                    break;
                 case Game.colorOptions.p1Serves:
                     btnPlayer1.BackgroundColor = Color.Blue;
                     victory = false;
@@ -164,14 +177,6 @@ namespace PingPongApp2 {
                 case Game.colorOptions.p2Serves:
                     btnPlayer2.BackgroundColor = Color.Blue;
                     victory = false;
-                    break;
-                case Game.colorOptions.p1Won:
-                    btnPlayer1.BackgroundColor = Color.Green;
-                    victory = true;
-                    break;
-                case Game.colorOptions.p2Won:
-                    btnPlayer1.BackgroundColor = Color.Green;
-                    victory = true;
                     break;
             }
 
@@ -301,22 +306,27 @@ namespace PingPongApp2 {
         
 
         public void Iterate(object sender, EventArgs e) {
-            if (!stopwatch.IsRunning) {
-                stopwatch.Start();
+            //make sure game is not already finished, green color buttons?
+            if(btnPlayer1.BackgroundColor != Color.Green && btnPlayer2.BackgroundColor != Color.Green) {
+                if (!stopwatch.IsRunning) {
+                    stopwatch.Start();
+                }
+
+                PointsPicker.IsEnabled = false;
+                toggleServer.IsEnabled = false;
+                Button btn = (Button)sender;
+                int score = int.Parse(btn.Text);
+                score++;
+                btn.Text = (score).ToString();
+                if (score >= victoryScore) {
+                    checkVictory();
+                }
+                if (!victory) {
+                    chkServer();
+                }
             }
 
-            PointsPicker.IsEnabled = false;
-            toggleServer.IsEnabled = false;
-            Button btn = (Button)sender;
-            int score = int.Parse(btn.Text);
-            score++;
-            btn.Text = (score).ToString();
-            if (score >= victoryScore) {
-                checkVictory();
-            }
-            if (!victory) {
-                chkServer();
-            }
+            
 
         }
 

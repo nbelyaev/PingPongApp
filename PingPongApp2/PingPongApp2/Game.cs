@@ -20,6 +20,7 @@ namespace PingPongApp2 {
         public bool singleServe;
         public Stopwatch gameStopwatch { get; set; }
         public Stack<int> history { get; set; }
+        public bool finishedGame { get; set; }
 
         public Game() {
             player1 = "Player1";
@@ -30,6 +31,7 @@ namespace PingPongApp2 {
             timeSec = "0";
             timeStamp = DateTime.Now.ToString();
             history = new Stack<int>();
+            finishedGame = false;
         }
         
 
