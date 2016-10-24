@@ -1,4 +1,3 @@
-C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\Mono.Android.xml
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\PingPongApp2.dll
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\PingPongApp2.pdb
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\Mono.Android.dll
@@ -11,6 +10,7 @@ C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\System.Xml.dll
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\System.Core.dll
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\Mono.Dynamic.Interpreter.dll
+C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\Mono.Android.xml
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\Newtonsoft.Json.xml
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\Xamarin.Forms.Core.xml
 C:\Users\nbelyaev\Desktop\Apps\PingPongApp2\PingPongApp2\PingPongApp2\bin\Debug\Xamarin.Forms.Xaml.xml

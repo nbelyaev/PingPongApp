@@ -79,6 +79,7 @@ namespace PingPongApp2 {
                 //int n =((StackLayout)(stack.Parent)).Children.IndexOf(stack);
                 //((Button)o).CommandParameter.ToString();
                 participants.Remove(playerToRemove);
+                SaveParticipants();
             }
             else {
                 DisplayAlert("Unable to remove", "You can only remove players what are not currently playing", "OK");
@@ -151,9 +152,11 @@ namespace PingPongApp2 {
                 participants.Add(participant);
                 nameEntry.Text = "";
 
-                var json = Newtonsoft.Json.JsonConvert.SerializeObject(participants);
+                //var json = Newtonsoft.Json.JsonConvert.SerializeObject(participants);
 
-                DependencyService.Get<ISaveAndLoad>().SaveText(LIST_OF_PARTICIPANTS, json.ToString());
+                //DependencyService.Get<ISaveAndLoad>().SaveText(LIST_OF_PARTICIPANTS, json.ToString());
+                SaveParticipants();
+
 
                 DisplayParticipants();
 
@@ -167,6 +170,12 @@ namespace PingPongApp2 {
                 DisplayAlert("Alert", "You need to enter a name!", "OK");
             }
             
+        }
+
+        private void SaveParticipants() {
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(participants);
+
+            DependencyService.Get<ISaveAndLoad>().SaveText(LIST_OF_PARTICIPANTS, json.ToString());
         }
         
     }

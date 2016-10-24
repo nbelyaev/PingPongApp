@@ -8,6 +8,7 @@ namespace PingPongApp2 {
     public class Tournament {
         public Stack<Participant> players { get; set; }
         public Stack<Participant> nextRoundPlayers { get; set; }
+        public List<Participant> playingNow { get; set; }
         public int roundNum = 1;
 
 
@@ -36,6 +37,9 @@ namespace PingPongApp2 {
                 list = nextRoundPlayers.ToList();
                 list.Remove(participant);
                 ListToStack(list, nextRoundPlayers);
+                result = true;
+            }
+            else if (!playingNow.Contains(participant)) {
                 result = true;
             }
             return result;
@@ -82,6 +86,7 @@ namespace PingPongApp2 {
 
         public Game NextGame() {
             Game newgame = new Game();
+            playingNow = new List<Participant>();
 
             if(players.Count == 1) {
                 AdvancePlayerToNextRound(players.Pop());
@@ -91,10 +96,14 @@ namespace PingPongApp2 {
                 NextRound();
             }
 
+            Participant player = players.Pop();
+            playingNow.Add(player);
+            newgame.player1 = player.Name;
 
-            newgame.player1 = players.Pop().Name;
+            player = players.Pop();
+            playingNow.Add(player);
 
-            newgame.player2 = players.Pop().Name;
+            newgame.player2 = player.Name;
 
             return newgame;
         }

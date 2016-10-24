@@ -7,9 +7,11 @@
 [x]doesn't display all of the tournament games anymore
 [x]show round number on top
 [x]new round message seems to be displayed multiple times
-[]deal with removal of players mid tournament
+[x]deal with removal of players mid tournament (ones scheduled for next round don't work again)
 [x]no option to continue when first game of tournament is exited (function that returns whether there's a victor returns wrong value)
 []sound for champion
+[x]List of participants does not save when participant is removed
+[]deal with multiple clicks on Continue and new tournament buttons (Optional)
 
 (generics,command parameters,generate and subscribe to custom events, save files on iOS and Android,
 	generate pages using Xamal and c#)
