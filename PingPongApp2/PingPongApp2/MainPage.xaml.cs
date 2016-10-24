@@ -132,7 +132,7 @@ namespace PingPongApp2 {
 
             currentTournament = tournament;
 
-            currentTournament.NewRoundStarted += NewRoundMessage;
+            //currentTournament.NewRoundStarted += NewRoundMessage;
 
 
             //reset.Clicked += setUpNextTournamentGame;
@@ -164,6 +164,8 @@ namespace PingPongApp2 {
             Title = "Tournament Match";
             SAVED_GAMES = "tournament_log.txt";
             tournamentGame = true;
+
+
 
 
 
@@ -355,6 +357,7 @@ namespace PingPongApp2 {
         }
 
 
+        //can't undo game what's already finished, since it's already logged as a victory and dealing with that is a hustle
         public void Undo(object o, EventArgs e) {
             if(history.Count > 0) {
                 int prev = history.Pop();
@@ -376,12 +379,14 @@ namespace PingPongApp2 {
                 btn.Text = val.ToString();
                 //count = count - 2;
 
-
+            
 
                 //int score1 = int.Parse(btnPlayer1.Text);
                 //int score2 = int.Parse(btnPlayer2.Text);
                 //if((score1+score2))
-
+                if(history.Count == 0) {
+                    btnUndo.IsEnabled = false;
+                }
 
             }
             
@@ -396,7 +401,9 @@ namespace PingPongApp2 {
                 if (!stopwatch.IsRunning) {
                     stopwatch.Start();
                 }
-                
+
+
+                btnUndo.IsEnabled = true;
                 PointsPicker.IsEnabled = false;
                 toggleServer.IsEnabled = false;
                 Button btn = (Button)sender;
@@ -454,6 +461,7 @@ namespace PingPongApp2 {
 
                 victory = true;
                 reset.IsEnabled = true;
+                btnUndo.IsEnabled = false;
                 logGame();
                 DisplayGames();
 

@@ -49,6 +49,7 @@ namespace PingPongApp2 {
         private void DisplayParticipants() {
             stackParticipants.Children.Clear();
             if (participants.Count != 0) {
+                participants= participants.OrderBy(x => x.Name).ToList(); 
                 foreach (Participant part in participants) {
                     Button remove = new Button { Text = "X" , HorizontalOptions= LayoutOptions.End, CommandParameter=part};
                     remove.Clicked += RemoveName;

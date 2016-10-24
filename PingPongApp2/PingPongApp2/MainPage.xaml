@@ -51,7 +51,7 @@
 
 
 
-    <Button HorizontalOptions="FillAndExpand" x:Name="btnUndo" Text="UNDO"  Clicked="Undo"/>
+    <Button HorizontalOptions="FillAndExpand" x:Name="btnUndo" Text="UNDO" IsEnabled="false"  Clicked="Undo"/>
 
 
 
