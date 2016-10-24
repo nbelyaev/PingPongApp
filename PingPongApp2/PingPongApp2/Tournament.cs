@@ -22,6 +22,33 @@ namespace PingPongApp2 {
             
         }
 
+        public bool RemoveParticipant(Participant participant) {
+            List<Participant> list = null;
+            bool result = false;
+            if (players.Contains(participant)) {
+                list = players.ToList();
+                list.Remove(participant);
+                ShufflePlayers();
+                ListToStack(list, players);
+                result = true;
+            }
+            else if (nextRoundPlayers.Contains<Participant>(participant)) {
+                list = nextRoundPlayers.ToList();
+                list.Remove(participant);
+                ListToStack(list, nextRoundPlayers);
+                result = true;
+            }
+            return result;
+        }
+
+        private void ListToStack<T>(List<T> list, Stack<T> stack) {
+            stack.Clear();
+            foreach(T item in list) {
+                stack.Push(item);
+            }
+        }
+
+
         public void ShufflePlayers() {
             if(players.Count > 0) {
                 List<Participant> list = players.ToList();

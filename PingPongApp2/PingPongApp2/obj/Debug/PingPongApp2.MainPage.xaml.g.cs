@@ -17,6 +17,9 @@ namespace PingPongApp2 {
     public partial class MainPage : global::Xamarin.Forms.ContentPage {
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
+        private global::Xamarin.Forms.Label roundNumber;
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private global::Xamarin.Forms.Entry player1;
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
@@ -49,6 +52,7 @@ namespace PingPongApp2 {
         [System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private void InitializeComponent() {
             this.LoadFromXaml(typeof(MainPage));
+            roundNumber = this.FindByName<global::Xamarin.Forms.Label>("roundNumber");
             player1 = this.FindByName<global::Xamarin.Forms.Entry>("player1");
             player2 = this.FindByName<global::Xamarin.Forms.Entry>("player2");
             toggleServer = this.FindByName<global::Xamarin.Forms.Switch>("toggleServer");

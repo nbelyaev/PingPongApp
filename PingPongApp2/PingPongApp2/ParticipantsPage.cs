@@ -14,7 +14,7 @@ namespace PingPongApp2 {
         private static List<Participant> participants = new List<Participant>();
         private const string LIST_OF_PARTICIPANTS = "participants.txt";
         private static Entry nameEntry;
-        private static StackLayout stackParticipants;
+        public  StackLayout stackParticipants;
         public Game currentGame;
         public Button contunueGame;
         public MainPage currentGamePage;
@@ -69,12 +69,21 @@ namespace PingPongApp2 {
         }
 
         private void RemoveName(object o, EventArgs e) {
-            StackLayout stack= (StackLayout)((Button)o).Parent;
-            stackParticipants.Children.Remove(stack);
-            //Label lbl= stack.FindByName<Label>("lbl");
-            //int n =((StackLayout)(stack.Parent)).Children.IndexOf(stack);
-            //((Button)o).CommandParameter.ToString();
-            participants.Remove((Participant)((Button)o).CommandParameter);
+            Button callerBtn = (Button)o;
+            Participant playerToRemove = (Participant)callerBtn.CommandParameter;
+
+            if (currentGame == null || currentTournament.RemoveParticipant(playerToRemove)) {
+                StackLayout stack = (StackLayout)callerBtn.Parent;
+                stackParticipants.Children.Remove(stack);
+                //Label lbl= stack.FindByName<Label>("lbl");
+                //int n =((StackLayout)(stack.Parent)).Children.IndexOf(stack);
+                //((Button)o).CommandParameter.ToString();
+                participants.Remove(playerToRemove);
+            }
+            else {
+                DisplayAlert("Unable to remove", "You can only remove players what are not currently playing", "OK");
+            }
+
         }
 
         private void Initialize() {

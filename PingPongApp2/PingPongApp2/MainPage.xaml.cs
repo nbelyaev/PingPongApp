@@ -16,7 +16,7 @@ namespace PingPongApp2 {
             set { }
         }
         private int count { get; set; }//can be replaced with local variables, REMOVE
-        private bool victory { get; set; }
+        public bool victory { get; set; }
         private bool singleServe { get; set; }
         private Stopwatch stopwatch;
         private List<Game> games = new List<Game>();
@@ -43,7 +43,7 @@ namespace PingPongApp2 {
 
             reset.IsEnabled = true;
 
-
+            roundNumber.IsVisible = false;
 
 
             Reset();
@@ -89,15 +89,15 @@ namespace PingPongApp2 {
 
         //can probably combine this one with MainPage(Tournament tournament, Game game)
         public MainPage(Tournament tournament) {
-            Title = "Tournament Match";
-            SAVED_GAMES = "tournament_log.txt";
-            tournamentGame = true;
+            //Title = "Tournament Match";
+            //SAVED_GAMES = "tournament_log.txt";
+            //tournamentGame = true;
             
 
 
-            InitializeComponent();
-            player1.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
-            player2.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
+            //InitializeComponent();
+            //player1.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
+            //player2.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
 
 
             currentTournament = tournament;
@@ -106,27 +106,28 @@ namespace PingPongApp2 {
 
 
 
-            reset.Clicked += setUpNextTournamentGame;
-            reset.IsEnabled = false;
+            //reset.Clicked += setUpNextTournamentGame;
+            //reset.IsEnabled = false;
 
             SetUpGame(tournament.NextGame());
             ClearRecords();
 
 
-            LoadGames();
+            //LoadGames();
+            //DisplayGames();
 
 
         }
         public MainPage(Tournament tournament, Game game) {
-            Title = "Tournament Match";
-            SAVED_GAMES = "tournament_log.txt";
-            tournamentGame = true;
+            //Title = "Tournament Match";
+            //SAVED_GAMES = "tournament_log.txt";
+            //tournamentGame = true;
 
 
 
-            InitializeComponent();
-            player1.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
-            player2.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
+            //InitializeComponent();
+            //player1.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
+            //player2.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
 
 
             currentTournament = tournament;
@@ -134,20 +135,21 @@ namespace PingPongApp2 {
             currentTournament.NewRoundStarted += NewRoundMessage;
 
 
-            reset.Clicked += setUpNextTournamentGame;
-            reset.IsEnabled = false;
+            //reset.Clicked += setUpNextTournamentGame;
+            //reset.IsEnabled = false;
 
             SetUpGame(game);
-            ClearRecords();
+            //ClearRecords();
 
 
-            LoadGames();
-
+            //LoadGames();
+            //DisplayGames();
 
         }
         public void NewRoundMessage(object sender, NewRoundStartedEventArgs e) {
             
-            DisplayAlert("Champion", "The round number "+e.roundNum + " have started!", "OK");
+            DisplayAlert("Round", "The round number "+e.roundNum + " have started!", "OK");
+            //roundNumber.Text = "Round " + currentTournament.roundNum;
         }
 
         public void setUpNextTournamentGame(object o, EventArgs e) {
@@ -159,6 +161,35 @@ namespace PingPongApp2 {
         }
 
         public void SetUpGame(Game game) {
+            Title = "Tournament Match";
+            SAVED_GAMES = "tournament_log.txt";
+            tournamentGame = true;
+
+
+
+            InitializeComponent();
+            player1.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
+            player2.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
+
+
+            roundNumber.Text = "Round " + currentTournament.roundNum;
+            //currentTournament.NewRoundStarted += NewRoundMessage;
+
+
+            reset.Clicked += setUpNextTournamentGame;
+            reset.IsEnabled = false;
+
+
+            //ClearRecords();
+
+
+            LoadGames();
+            DisplayGames();
+
+
+
+
+
             player1.Text = game.player1;
             player1.IsEnabled = false;
             player2.Text = game.player2;

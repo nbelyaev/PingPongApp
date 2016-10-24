@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PingPongApp2.MainPage">
 
-  <Label Text="hi" VerticalOptions="Center" HorizontalOptions="Center" />
 
   <StackLayout>
+
+
+    <Label FontSize="Large" Text="Round 1" x:Name="roundNumber" HorizontalOptions="CenterAndExpand" />
+    
     <StackLayout  Padding="0,25" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
 
       <Entry HeightRequest="50" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" x:Name="player1" Text="player1" />

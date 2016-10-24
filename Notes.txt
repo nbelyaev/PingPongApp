@@ -3,3 +3,13 @@
 [x]Add participants mid tournament
 	just add them to the stack in the tournament class
 []show brackets????
+[]Properly undo already won game
+[x]doesn't display all of the tournament games anymore
+[x]show round number on top
+[x]new round message seems to be displayed multiple times
+[]deal with removal of players mid tournament
+[x]no option to continue when first game of tournament is exited (function that returns whether there's a victor returns wrong value)
+[]sound for champion
+
+(generics,command parameters,generate and subscribe to custom events, save files on iOS and Android,
+	generate pages using Xamal and c#)

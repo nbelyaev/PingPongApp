@@ -14,5 +14,15 @@ namespace PingPongApp2 {
         public Participant(string name) {
             Name = name;
         }
+
+        public override bool Equals(object obj) {
+            return ((Participant)obj).Name == Name;
+        }
+
+        public override int GetHashCode() {
+            return base.GetHashCode();
+        }
+
+    
     }
 }
