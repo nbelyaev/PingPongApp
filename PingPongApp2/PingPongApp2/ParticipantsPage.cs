@@ -124,6 +124,9 @@ namespace PingPongApp2 {
         }
 
         private async void StartNewTournament(object o, EventArgs e) {
+            Button caller = (Button)o;
+            caller.IsEnabled = false;
+
             if(participants!=null && participants.Count > 1) {
                 //currentGame = new Game();
                 currentTournament = new Tournament(participants);
@@ -136,13 +139,22 @@ namespace PingPongApp2 {
                 
                 await DisplayAlert("Alert", "You need at least 2 participants!", "OK");
             }
-            
+
+
+            caller.IsEnabled = true;
+
         }
 
         private async void ContinueTournament(object o, EventArgs e) {
+            Button caller = (Button)o;
+            caller.IsEnabled = false;
+
 
             currentGamePage = new MainPage(currentTournament, currentGame);
             await Navigation.PushAsync(currentGamePage);
+
+
+            caller.IsEnabled = true;
         }
 
 

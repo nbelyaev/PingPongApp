@@ -18,7 +18,9 @@
 	(function that returns whether there's a victor returns wrong value)
 []sound for champion
 [x]List of participants does not save when participant is removed
-[]deal with multiple clicks on Continue and new tournament buttons (Optional)
+*[x]deal with multiple clicks on Continue and new tournament buttons (Optional)
+	reset button, and new game button => disable until action is finished
+*[x]Fix Undo button on continue being disabled
 [x]alphabetize participants
 
 (generics,command parameters,generate and subscribe to custom events, save files on iOS and Android,

@@ -203,6 +203,9 @@ namespace PingPongApp2 {
 
 
             history = game.history;
+            if (history!=null && history.Count > 0) {
+                btnUndo.IsEnabled = true;
+            }
 
 
             btnPlayer1.BackgroundColor = Color.Gray;
