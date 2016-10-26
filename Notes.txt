@@ -3,10 +3,15 @@
 [x]Add participants mid tournament
 	just add them to the stack in the tournament class
 []show brackets????
-*[]Properly undo already won game(Now you just can't undo already finished game, since it's already logged)
+[x]Properly undo already won game
+	It works, but server change might be messed up
+	(1s1wC,1s2wC,1s1wN,1s2wN,2s1wC,2s2wC,2s1wN,2s2wN)
+	now if server won, it changes color to gray for everything
+	
+	
 [x]doesn't display all of the tournament games anymore
 [x]show round number on top
-*[x]new round message seems to be displayed multiple times
+[x]new round message seems to be displayed multiple times
 	(I think it started again, look at how many times event handler is assigned a function)
 [x]deal with removal of players mid tournament (ones scheduled for next round don't work again)
 [x]no option to continue when first game of tournament is exited 
@@ -14,7 +19,7 @@
 []sound for champion
 [x]List of participants does not save when participant is removed
 []deal with multiple clicks on Continue and new tournament buttons (Optional)
-*[x]alphabetize participants
+[x]alphabetize participants
 
 (generics,command parameters,generate and subscribe to custom events, save files on iOS and Android,
 	generate pages using Xamal and c#, some lambda expressions)

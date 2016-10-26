@@ -356,10 +356,38 @@ namespace PingPongApp2 {
             victoryScore = int.Parse(PointsPicker.Items[PointsPicker.SelectedIndex]);
         }
 
+        private void UndoVictory() {
+            victory = false;
+            btnPlayer1.IsEnabled = true;
+            btnPlayer2.IsEnabled = true;
+            if (btnPlayer1.BackgroundColor == Color.Blue) {
+                btnPlayer2.BackgroundColor = Color.Gray;
+            }
+            else if (btnPlayer2.BackgroundColor == Color.Blue) {
+                btnPlayer1.BackgroundColor = Color.Gray;
+            }
+            else if (btnPlayer1.BackgroundColor == Color.Green) {
+                btnPlayer1.BackgroundColor = Color.Blue;
+            }
+            else if (btnPlayer2.BackgroundColor == Color.Green) {
+                btnPlayer2.BackgroundColor = Color.Blue;
+            }
+        }
 
         //can't undo game what's already finished, since it's already logged as a victory and dealing with that is a hustle
         public void Undo(object o, EventArgs e) {
             if(history.Count > 0) {
+
+                //bool undoingVictory = victory;
+                if (victory) {
+                    UndoGame();
+                    UndoVictory();
+                    DisplayGames();
+                }
+                else {
+                    chkServer();
+                }
+
                 int prev = history.Pop();
                 Button btn;
                 if (prev == 1) {
@@ -370,8 +398,10 @@ namespace PingPongApp2 {
 
                 }
 
-
-                chkServer();
+                //if (undoingVictory) {
+                //    chkServer();
+                //}
+                
 
                 int val;
                 int.TryParse(btn.Text, out val);
@@ -461,7 +491,7 @@ namespace PingPongApp2 {
 
                 victory = true;
                 reset.IsEnabled = true;
-                btnUndo.IsEnabled = false;
+                //btnUndo.IsEnabled = false;
                 logGame();
                 DisplayGames();
 
@@ -491,6 +521,13 @@ namespace PingPongApp2 {
 
             DependencyService.Get<ISaveAndLoad>().SaveText(SAVED_GAMES, json.ToString());
             
+        }
+
+        private void UndoGame() {
+            games.RemoveAt(0);
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(games);
+
+            DependencyService.Get<ISaveAndLoad>().SaveText(SAVED_GAMES, json.ToString());
         }
 
         public void ClearRecords(object sender, EventArgs e) {
