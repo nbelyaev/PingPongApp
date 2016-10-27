@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace PingPongApp2 {
         private bool singleServe { get; set; }
         private Stopwatch stopwatch;
         private List<Game> games = new List<Game>();
-        private string SAVED_GAMES;
+        private string SAVED_GAMES ;
         public Tournament currentTournament;
         public bool tournamentGame;
         public Stack<int> history;
@@ -29,7 +29,7 @@ namespace PingPongApp2 {
 
         public MainPage() {
             Title = "Single Match";
-            SAVED_GAMES = "match_log.txt";
+            SAVED_GAMES ="match_log.txt";
             tournamentGame = false;
 
             InitializeComponent();
@@ -52,6 +52,7 @@ namespace PingPongApp2 {
             LoadGames();
 
 
+
         }
 
         public Game SaveGame() {
@@ -70,7 +71,7 @@ namespace PingPongApp2 {
             stopwatch.Stop();
             thisGame.gameStopwatch = stopwatch;
 
-
+            
             if (btnPlayer1.BackgroundColor == Color.Green) {
                 thisGame.colorSetup = Game.colorOptions.p1Won;
             }
@@ -92,7 +93,7 @@ namespace PingPongApp2 {
             //Title = "Tournament Match";
             //SAVED_GAMES = "tournament_log.txt";
             //tournamentGame = true;
-
+            
 
 
             //InitializeComponent();
@@ -147,14 +148,17 @@ namespace PingPongApp2 {
 
         }
         public void NewRoundMessage(object sender, NewRoundStartedEventArgs e) {
-
-            DisplayAlert("Round", "The round number " + e.roundNum + " have started!", "OK");
+            
+            DisplayAlert("Round", "The round number "+e.roundNum + 
+                " have started!\n You may now change number of games required to win", "OK");
+            //GameNumberPicker.IsEnabled = true;
             //roundNumber.Text = "Round " + currentTournament.roundNum;
         }
 
         public void setUpNextTournamentGame(object o, EventArgs e) {
             if (!currentTournament.VictorDecided()) {
 
+                
 
                 if (currentTournament != null && stackGamesToWin.IsVisible) {
                     //GameNumberPicker.IsEnabled = false;
@@ -164,9 +168,37 @@ namespace PingPongApp2 {
 
 
 
+                int gamesPlayed = currentTournament.p1GamesWon + currentTournament.p2GamesWon;
+                int gamesToWin = currentTournament.gamesToWin[currentTournament.gamesToWinIndex];
+                if(gamesPlayed== gamesToWin) {
 
-                SetUpGame(currentTournament.NextGame());
+                    if(currentTournament.p1GamesWon> currentTournament.p2GamesWon) {
+                        currentTournament.AdvancePlayerToNextRound(new Participant { Name = player1.Text });
+
+                    }
+                    else {
+
+                        currentTournament.AdvancePlayerToNextRound(new Participant { Name = player2.Text });
+                    }
+
+
+                    SetUpGame(currentTournament.NextGame());
+                }
+                else {
+                    Reset();
+
+                    reset.Clicked += setUpNextTournamentGame;
+                    reset.IsEnabled = false;
+                }
+
+
+
+                //SetUpGame(currentTournament.NextGame());
+
+
+
                 reset.IsEnabled = false;
+
             }
         }
 
@@ -178,7 +210,6 @@ namespace PingPongApp2 {
 
 
 
-
             InitializeComponent();
             player1.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
             player2.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Entry));
@@ -186,10 +217,16 @@ namespace PingPongApp2 {
 
 
 
+            currentTournament.p1GamesWon = 0;
+            currentTournament.p2GamesWon = 0;
+
+
+
+
 
             stackGamesToWin.IsVisible = true;
             GameNumberPicker.Items.Clear();
-            foreach (int n in currentTournament.gamesToWin) {
+            foreach(int n in currentTournament.gamesToWin) {
                 GameNumberPicker.Items.Add(n.ToString());
             }
             GameNumberPicker.SelectedIndex = currentTournament.gamesToWinIndex;
@@ -198,10 +235,6 @@ namespace PingPongApp2 {
             if (!currentTournament.newRound) {
                 GameNumberPicker.IsEnabled = false;
             }
-
-
-
-
 
 
 
@@ -236,7 +269,7 @@ namespace PingPongApp2 {
 
 
             history = game.history;
-            if (history != null && history.Count > 0) {
+            if (history!=null && history.Count > 0) {
                 btnUndo.IsEnabled = true;
             }
 
@@ -245,7 +278,7 @@ namespace PingPongApp2 {
             btnPlayer1.BackgroundColor = Color.Gray;
 
             switch (game.colorSetup) {
-
+                
                 case Game.colorOptions.p1Won:
                     btnPlayer1.BackgroundColor = Color.Green;
                     victory = true;
@@ -270,7 +303,7 @@ namespace PingPongApp2 {
 
             count = int.Parse(game.score1) + int.Parse(game.score2);
 
-            if (count == 0) {
+            if(count == 0) {
                 PointsPicker.IsEnabled = true;
                 singleServe = false;
                 toggleServer.IsEnabled = true;
@@ -283,7 +316,7 @@ namespace PingPongApp2 {
 
             }
 
-            if (game.gameStopwatch != null && game.gameStopwatch.ElapsedTicks > 0) {
+            if(game.gameStopwatch != null && game.gameStopwatch.ElapsedTicks > 0) {
                 stopwatch = game.gameStopwatch;
             }
             else {
@@ -293,25 +326,24 @@ namespace PingPongApp2 {
 
 
         }
-
-
+        
         private void ChangeGamesToWin(object o, EventArgs e) {
             Picker caller = (Picker)o;
             currentTournament.gamesToWinIndex = caller.SelectedIndex;
         }
 
         private void LoadGames() {
+            
+            
+            string  temp = DependencyService.Get<ISaveAndLoad>().LoadText(SAVED_GAMES);
 
-
-            string temp = DependencyService.Get<ISaveAndLoad>().LoadText(SAVED_GAMES);
-
-            if (temp != "") {
+            if(temp!= "") {
                 games = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Game>>(temp);
-
+                
 
                 DisplayGames();
             }
-
+            
 
         }
 
@@ -343,9 +375,11 @@ namespace PingPongApp2 {
             stopwatch.Reset();
 
 
+            
+
 
             history = new Stack<int>();
-
+            
         }
 
         private void chkServer() {
@@ -417,7 +451,7 @@ namespace PingPongApp2 {
 
         //can't undo game what's already finished, since it's already logged as a victory and dealing with that is a hustle
         public void Undo(object o, EventArgs e) {
-            if (history.Count > 0) {
+            if(history.Count > 0) {
 
                 //bool undoingVictory = victory;
                 if (victory) {
@@ -442,7 +476,7 @@ namespace PingPongApp2 {
                 //if (undoingVictory) {
                 //    chkServer();
                 //}
-
+                
 
                 int val;
                 int.TryParse(btn.Text, out val);
@@ -450,25 +484,25 @@ namespace PingPongApp2 {
                 btn.Text = val.ToString();
                 //count = count - 2;
 
-
+            
 
                 //int score1 = int.Parse(btnPlayer1.Text);
                 //int score2 = int.Parse(btnPlayer2.Text);
                 //if((score1+score2))
-                if (history.Count == 0) {
+                if(history.Count == 0) {
                     btnUndo.IsEnabled = false;
                 }
 
             }
+            
 
-
-
+            
         }
-
+        
 
         public void Iterate(object sender, EventArgs e) {
             //make sure game is not already finished, green color buttons?
-            if (btnPlayer1.BackgroundColor != Color.Green && btnPlayer2.BackgroundColor != Color.Green) {
+            if(btnPlayer1.BackgroundColor != Color.Green && btnPlayer2.BackgroundColor != Color.Green) {
                 if (!stopwatch.IsRunning) {
                     stopwatch.Start();
                 }
@@ -480,7 +514,7 @@ namespace PingPongApp2 {
                 Button btn = (Button)sender;
 
 
-                if (btn == btnPlayer1) {
+                if(btn == btnPlayer1) {
                     history.Push(1);
                 }
                 else {
@@ -501,7 +535,7 @@ namespace PingPongApp2 {
                 }
             }
 
-
+            
 
         }
 
@@ -514,19 +548,40 @@ namespace PingPongApp2 {
                 btnPlayer2.IsEnabled = false;
                 stopwatch.Stop();
 
+                int playerGamesToIncrement;
+
                 if (p1 > p2) {
                     btnPlayer1.BackgroundColor = Color.Green;
                     victor = player1.Text;
+
+                    playerGamesToIncrement = 1;
+                    //currentTournament.p1GamesWon++;
+
                 }
                 else {
                     btnPlayer2.BackgroundColor = Color.Green;
                     victor = player2.Text;
+
+
+                    playerGamesToIncrement = 2;
+                    //currentTournament.p2GamesWon++;
                 }
 
 
-                if (currentTournament != null) {
+                if(currentTournament != null) {
 
-                    currentTournament.AdvancePlayerToNextRound(new Participant { Name = victor });
+                    //currentTournament.AdvancePlayerToNextRound(new Participant { Name = victor });
+
+                    if (playerGamesToIncrement == 1) {
+                        currentTournament.p1GamesWon++;
+                    }
+                    else{
+                        currentTournament.p2GamesWon++;
+
+                    }
+                    
+
+
                 }
 
 
@@ -536,32 +591,32 @@ namespace PingPongApp2 {
                 logGame();
                 DisplayGames();
 
-                if (tournamentGame && currentTournament != null && currentTournament.VictorDecided()) {
-                    reset.IsEnabled = false;
-                    DisplayAlert("Champion", "The champion of this tournament is " + victor + "!", "OK");
-                }
+                //if (tournamentGame && currentTournament!= null && currentTournament.VictorDecided()) {
+                //    reset.IsEnabled = false;
+                //    DisplayAlert("Champion", "The champion of this tournament is "+victor+"!", "OK");
+                //}
 
             }
 
         }
 
         private void logGame() {
-
+            
 
             Game thisGame = new Game();
             thisGame.player1 = player1.Text;
             thisGame.player2 = player2.Text;
             thisGame.score1 = btnPlayer1.Text;
             thisGame.score2 = btnPlayer2.Text;
-            thisGame.timeMin = stopwatch.Elapsed.Minutes.ToString();
+            thisGame.timeMin= stopwatch.Elapsed.Minutes.ToString();
             thisGame.timeSec = stopwatch.Elapsed.Seconds.ToString();
             thisGame.gameStopwatch = stopwatch;
-
+            
             games.Insert(0, thisGame);
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(games);
 
             DependencyService.Get<ISaveAndLoad>().SaveText(SAVED_GAMES, json.ToString());
-
+            
         }
 
         private void UndoGame() {

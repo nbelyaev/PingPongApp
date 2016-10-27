@@ -32,6 +32,12 @@ namespace PingPongApp2 {
         private global::Xamarin.Forms.Picker PointsPicker;
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
+        private global::Xamarin.Forms.StackLayout stackGamesToWin;
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
+        private global::Xamarin.Forms.Picker GameNumberPicker;
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
         private global::Xamarin.Forms.Button btnPlayer1;
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
@@ -57,6 +63,8 @@ namespace PingPongApp2 {
             player2 = this.FindByName<global::Xamarin.Forms.Entry>("player2");
             toggleServer = this.FindByName<global::Xamarin.Forms.Switch>("toggleServer");
             PointsPicker = this.FindByName<global::Xamarin.Forms.Picker>("PointsPicker");
+            stackGamesToWin = this.FindByName<global::Xamarin.Forms.StackLayout>("stackGamesToWin");
+            GameNumberPicker = this.FindByName<global::Xamarin.Forms.Picker>("GameNumberPicker");
             btnPlayer1 = this.FindByName<global::Xamarin.Forms.Button>("btnPlayer1");
             btnPlayer2 = this.FindByName<global::Xamarin.Forms.Button>("btnPlayer2");
             reset = this.FindByName<global::Xamarin.Forms.Button>("reset");

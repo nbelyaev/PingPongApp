@@ -10,9 +10,18 @@ namespace PingPongApp2 {
         public Stack<Participant> nextRoundPlayers { get; set; }
         public List<Participant> playingNow { get; set; }
         public int roundNum = 1;
+        public int gamesToWinIndex = 0;
+        public int[] gamesToWin = { 1, 3, 5, 7 };
+        public bool newRound  { get; set; }
+        public int p1GamesWon = 0;
+        public int p2GamesWon = 0;
 
 
         public Tournament(List<Participant> list) {
+
+            newRound = true;
+
+
             list.Shuffle();
             players = new Stack<Participant>();
             nextRoundPlayers = new Stack<Participant>();
@@ -117,7 +126,16 @@ namespace PingPongApp2 {
             roundNum++;
 
 
+
+
+            newRound = true;
+
+
+
             NewRoundStartedEventArgs args = new NewRoundStartedEventArgs();
+
+
+
             args.roundNum = roundNum;
             OnNewRoundStarted(args);
         }

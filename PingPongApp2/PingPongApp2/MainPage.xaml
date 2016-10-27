@@ -18,7 +18,7 @@
 
 
 
-    <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+    <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="0,10">
       <Label FontSize="Medium" Text="Switch starting server" HorizontalOptions="Start" />
       <Switch x:Name="toggleServer" Toggled="switchServer"></Switch>
 
@@ -26,13 +26,37 @@
 
 
 
+    <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="0,10">
 
-    <Picker x:Name="PointsPicker" SelectedIndex="1" SelectedIndexChanged="ChangeVictory" >
-      <Picker.Items>
-        <x:String>11</x:String>
-        <x:String>21</x:String>
-      </Picker.Items>
-    </Picker>
+
+      <Label FontSize="Medium" Text="Points required for victory: " HorizontalOptions="Start" />
+      
+      <Picker x:Name="PointsPicker" SelectedIndex="1" SelectedIndexChanged="ChangeVictory" >
+        <Picker.Items>
+          <x:String>11</x:String>
+          <x:String>21</x:String>
+        </Picker.Items>
+      </Picker>
+
+    </StackLayout>
+
+    <StackLayout x:Name="stackGamesToWin"  Orientation="Horizontal" HorizontalOptions="FillAndExpand" IsVisible="false" Padding="0,10">
+
+
+      <Label FontSize="Medium" Text="Number of games required for victory: " HorizontalOptions="Start" />
+
+      <Picker x:Name="GameNumberPicker"   SelectedIndexChanged="ChangeGamesToWin">
+        <Picker.Items>
+          
+        </Picker.Items>
+      </Picker>
+
+    </StackLayout>
+
+
+
+
+    
 
 
     <StackLayout  Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="0,25">
