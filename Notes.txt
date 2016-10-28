@@ -7,7 +7,7 @@
 		(in setup new tournament game use victor decided together with checking if nmber of games player is correct)
 		maybe just leave victory condition decision the same, just get rid of message, let winner be sent to next 
 			round and then pop winner if not final game
-[]Undo champion doesn't recognize new champ and allows game refresh
+[x]Undo champion doesn't recognize new champ and allows game refresh
 [x]Add participants mid tournament
 	just add them to the stack in the tournament class
 []show brackets????

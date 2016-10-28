@@ -80,7 +80,10 @@
 
 
 
+    <ScrollView>
+
     <StackLayout x:Name="newLbls"  Orientation="Vertical" HorizontalOptions="FillAndExpand" Padding="0,25"></StackLayout>
+    </ScrollView>
 
   </StackLayout>
 
