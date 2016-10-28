@@ -1,13 +1,13 @@
 [x]Undo
-[]Best out of ____
+[x]Best out of ____
 	every victory adds one to Tournament.p2gamesWon (or p1gamesWon), undo will decrement this value
 	setUpNextTournamentGAme will see if sum of victories for both equal number of games to win
 		if not equal just reset same game (will probably need to set score values to 0)
-	[]tournament ends prematurely, probably the way function victorIsDecided at fault here 
+	[x]tournament ends prematurely, probably the way function victorIsDecided at fault here 
 		(in setup new tournament game use victor decided together with checking if nmber of games player is correct)
 		maybe just leave victory condition decision the same, just get rid of message, let winner be sent to next 
 			round and then pop winner if not final game
-
+[]Undo champion doesn't recognize new champ and allows game refresh
 [x]Add participants mid tournament
 	just add them to the stack in the tournament class
 []show brackets????

@@ -148,7 +148,8 @@ namespace PingPongApp2 {
         }
         public void NewRoundMessage(object sender, NewRoundStartedEventArgs e) {
 
-            DisplayAlert("Round", "The round number " + e.roundNum + " have started!", "OK");
+            DisplayAlert("Round", "The round number " + e.roundNum + " have started!"+
+                "\nYou may now change the number of games needed to advance.", "OK");
             //roundNumber.Text = "Round " + currentTournament.roundNum;
         }
 
@@ -428,17 +429,29 @@ namespace PingPongApp2 {
         public void Undo(object o, EventArgs e) {
             if (history.Count > 0) {
 
+                int prev = history.Pop();
+
                 //bool undoingVictory = victory;
                 if (victory) {
                     UndoGame();
                     UndoVictory();
                     DisplayGames();
+
+                    if (currentTournament != null) {
+                        if ( prev == 1) {
+                            currentTournament.p1GamesWon--;
+                        }
+                        else  {
+                            currentTournament.p2GamesWon--;
+                        }
+                        currentTournament.nextRoundPlayers.Pop();
+                    }
+                    
                 }
                 else {
                     chkServer();
                 }
 
-                int prev = history.Pop();
                 Button btn;
                 if (prev == 1) {
                     btn = btnPlayer1;
@@ -551,8 +564,7 @@ namespace PingPongApp2 {
 
 
 
-                ////////////////////////////////////
-                //this can be placed in an if statement when doing multiple games per round
+                
                 if (currentTournament != null) {
                     int gamesPlayed = currentTournament.p1GamesWon + currentTournament.p2GamesWon;
                     int gamesToPlay = currentTournament.gamesToWin[currentTournament.gamesToWinIndex];
@@ -581,7 +593,6 @@ namespace PingPongApp2 {
                 }
                 
                 
-                /////////////////////////////////////////////////////////////////////
             }
 
         }
