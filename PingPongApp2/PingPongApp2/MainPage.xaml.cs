@@ -525,15 +525,18 @@ namespace PingPongApp2 {
 
                 if (p1 > p2) {
                     btnPlayer1.BackgroundColor = Color.Green;
-                    //victor = player1.Text;
+                    victor = player1.Text;
+                    if(currentTournament!= null) { 
+                        currentTournament.p1GamesWon++;
 
-                    currentTournament.p1GamesWon++;
+                }
                 }
                 else {
                     btnPlayer2.BackgroundColor = Color.Green;
-                    //victor = player2.Text;
-
-                    currentTournament.p2GamesWon++;
+                    victor = player2.Text;
+                    if (currentTournament != null) {
+                        currentTournament.p2GamesWon++;
+                    }
                 }
 
 
@@ -550,30 +553,33 @@ namespace PingPongApp2 {
 
                 ////////////////////////////////////
                 //this can be placed in an if statement when doing multiple games per round
-                int gamesPlayed = currentTournament.p1GamesWon + currentTournament.p2GamesWon;
-                int gamesToPlay = currentTournament.gamesToWin[currentTournament.gamesToWinIndex];
+                if (currentTournament != null) {
+                    int gamesPlayed = currentTournament.p1GamesWon + currentTournament.p2GamesWon;
+                    int gamesToPlay = currentTournament.gamesToWin[currentTournament.gamesToWinIndex];
 
 
-                if (gamesToPlay == gamesPlayed) {
+                    if (gamesToPlay == gamesPlayed) {
 
-                    if (currentTournament.p1GamesWon > currentTournament.p2GamesWon) {
-                        victor = player1.Text;
-                    }
-                    else {
-                        victor = player2.Text;
-                    }
+                        if (currentTournament.p1GamesWon > currentTournament.p2GamesWon) {
+                            victor = player1.Text;
+                        }
+                        else {
+                            victor = player2.Text;
+                        }
 
 
-                    if (currentTournament != null) {
+                        if (currentTournament != null) {
 
-                        currentTournament.AdvancePlayerToNextRound(new Participant { Name = victor });
-                    }
+                            currentTournament.AdvancePlayerToNextRound(new Participant { Name = victor });
+                        }
 
-                    if (tournamentGame && currentTournament != null && currentTournament.VictorDecided()) {
-                        reset.IsEnabled = false;
-                        DisplayAlert("Champion", "The champion of this tournament is " + victor + "!", "OK");
+                        if (tournamentGame && currentTournament != null && currentTournament.VictorDecided()) {
+                            reset.IsEnabled = false;
+                            DisplayAlert("Champion", "The champion of this tournament is " + victor + "!", "OK");
+                        }
                     }
                 }
+                
                 
                 /////////////////////////////////////////////////////////////////////
             }
