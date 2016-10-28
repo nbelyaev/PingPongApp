@@ -153,7 +153,10 @@ namespace PingPongApp2 {
         }
 
         public void setUpNextTournamentGame(object o, EventArgs e) {
-            if (!currentTournament.VictorDecided()) {
+
+            int gamesPlayed = currentTournament.p1GamesWon + currentTournament.p2GamesWon;
+            int gamesToPlay = currentTournament.gamesToWin[currentTournament.gamesToWinIndex];
+            //if (!currentTournament.VictorDecided()) {
 
 
                 if (currentTournament != null && stackGamesToWin.IsVisible) {
@@ -162,12 +165,18 @@ namespace PingPongApp2 {
                 }
 
 
-
-
-
+            if(gamesPlayed== gamesToPlay) {
                 SetUpGame(currentTournament.NextGame());
-                reset.IsEnabled = false;
             }
+            else {
+                Reset();
+                SetUpGame(SaveGame());
+            }
+
+
+                //SetUpGame(currentTournament.NextGame());
+                reset.IsEnabled = false;
+            //}
         }
 
         public void SetUpGame(Game game) {
@@ -516,18 +525,19 @@ namespace PingPongApp2 {
 
                 if (p1 > p2) {
                     btnPlayer1.BackgroundColor = Color.Green;
-                    victor = player1.Text;
+                    //victor = player1.Text;
+
+                    currentTournament.p1GamesWon++;
                 }
                 else {
                     btnPlayer2.BackgroundColor = Color.Green;
-                    victor = player2.Text;
+                    //victor = player2.Text;
+
+                    currentTournament.p2GamesWon++;
                 }
 
 
-                if (currentTournament != null) {
-
-                    currentTournament.AdvancePlayerToNextRound(new Participant { Name = victor });
-                }
+                
 
 
                 victory = true;
@@ -536,11 +546,36 @@ namespace PingPongApp2 {
                 logGame();
                 DisplayGames();
 
-                if (tournamentGame && currentTournament != null && currentTournament.VictorDecided()) {
-                    reset.IsEnabled = false;
-                    DisplayAlert("Champion", "The champion of this tournament is " + victor + "!", "OK");
-                }
 
+
+                ////////////////////////////////////
+                //this can be placed in an if statement when doing multiple games per round
+                int gamesPlayed = currentTournament.p1GamesWon + currentTournament.p2GamesWon;
+                int gamesToPlay = currentTournament.gamesToWin[currentTournament.gamesToWinIndex];
+
+
+                if (gamesToPlay == gamesPlayed) {
+
+                    if (currentTournament.p1GamesWon > currentTournament.p2GamesWon) {
+                        victor = player1.Text;
+                    }
+                    else {
+                        victor = player2.Text;
+                    }
+
+
+                    if (currentTournament != null) {
+
+                        currentTournament.AdvancePlayerToNextRound(new Participant { Name = victor });
+                    }
+
+                    if (tournamentGame && currentTournament != null && currentTournament.VictorDecided()) {
+                        reset.IsEnabled = false;
+                        DisplayAlert("Champion", "The champion of this tournament is " + victor + "!", "OK");
+                    }
+                }
+                
+                /////////////////////////////////////////////////////////////////////
             }
 
         }

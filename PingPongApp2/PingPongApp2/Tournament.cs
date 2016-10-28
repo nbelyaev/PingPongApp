@@ -94,6 +94,12 @@ namespace PingPongApp2 {
         }
 
         public Game NextGame() {
+
+            p1GamesWon = 0;
+            p2GamesWon = 0;
+
+
+
             Game newgame = new Game();
             playingNow = new List<Participant>();
 
